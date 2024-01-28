@@ -71,6 +71,8 @@ function showAlert(message){
 function consultAPI() {
     const {currence, cryptocurrence} = objSearch;
 
+    showSpinner();
+
     fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptocurrence}&tsyms=${currence}`)
         .then(response => response.json())
         .then(data => {
@@ -120,4 +122,20 @@ function cleanHTML(spaceToClean){
     while(spaceToClean.firstChild){
         spaceToClean.removeChild(spaceToClean.firstChild);
     }
+}
+
+function showSpinner() {
+    cleanHTML(result);
+
+    const spinner=document.createElement('div');
+    spinner.classList.add('sk-chase');
+    spinner.innerHTML=`
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+    `;
+    result.appendChild(spinner);
 }
