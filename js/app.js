@@ -3,6 +3,7 @@ const cryptoCurrenceSelector = document.querySelector("#cryptocurrences");
 const currenceSelector = document.querySelector("#currence");
 const result = document.querySelector("#resultado");
 
+// Object which is going to save the values selected by the user
 const objSearch = {
   currence: "",
   cryptocurrence: "",
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   currenceSelector.addEventListener("change", readValue);
 });
 
+// Function that is going to fill the options of the form in criptocurrencies selector
 function callAPI() {
   fetch(
     "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=MXN"
@@ -26,11 +28,13 @@ function callAPI() {
     .then((cryptoCurrencies) => fillForm(cryptoCurrencies));
 }
 
+// Promise that gets the cryptocurrencies for the options
 const getCryptoCurrencies = (cryptoCurrencies) =>
   new Promise((resolve) => {
     resolve(cryptoCurrencies);
   });
 
+// Function that fill insert the options of cryptocurrencies in DOM
 function fillForm(dataCryptos) {
   dataCryptos.forEach((Coin) => {
     const { FullName, Name } = Coin.CoinInfo;
@@ -41,10 +45,12 @@ function fillForm(dataCryptos) {
   });
 }
 
+// Function that read the values of the user and append them in 'objSearch'
 function readValue(e) {
   objSearch[e.target.name] = e.target.value;
 }
 
+// Function that validate the form
 function validateForm(e) {
   e.preventDefault();
 
@@ -58,6 +64,7 @@ function validateForm(e) {
   consultAPI();
 }
 
+// Function that shows alerts is one of the fiels is not selected by the user
 function showAlert(message) {
   const alertExist = document.querySelector(".error");
   if (!alertExist) {
@@ -71,6 +78,7 @@ function showAlert(message) {
   }
 }
 
+// Function that calls the API and get its values to show them
 function consultAPI() {
   const { currence, cryptocurrence } = objSearch;
 
@@ -85,6 +93,7 @@ function consultAPI() {
     });
 }
 
+// Function that append the cryptocurrency in DOM
 function showQuote(objData) {
   cleanHTML(result);
 
@@ -129,6 +138,7 @@ function cleanHTML(spaceToClean) {
   }
 }
 
+// Spinner
 function showSpinner() {
   cleanHTML(result);
 
