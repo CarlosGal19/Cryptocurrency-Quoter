@@ -50,6 +50,8 @@ function validateForm(e) {
         showAlert('Both field are required');
         return
     }
+
+    consultAPI();
 }
 
 function showAlert(message){
@@ -63,4 +65,18 @@ function showAlert(message){
             alert.remove();
         }, 3000);
     }
+}
+
+function consultAPI() {
+    const {currence, cryptocurrence} = objSearch;
+
+    fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptocurrence}&tsyms=${currence}`)
+        .then(response => response.json())
+        .then(data => {
+            showQuote(data.DISPLAY[cryptocurrence][currence]);
+        })
+}
+
+function showQuote(objData) {
+
 }
