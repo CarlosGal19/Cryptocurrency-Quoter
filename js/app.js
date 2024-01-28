@@ -1,6 +1,7 @@
 const form=document.querySelector('#formulario')
 const cryptoCurrenceSelector=document.querySelector('#cryptocurrences');
 const currenceSelector=document.querySelector('#currence');
+const result=document.querySelector('#resultado')
 
 const objSearch={
     currence: '',
@@ -78,5 +79,45 @@ function consultAPI() {
 }
 
 function showQuote(objData) {
+    cleanHTML(result);
 
+    const {LASTUPDATE, LOWDAY, HIGHDAY, PRICE, CHANGEPCT24HOUR} = objData;
+
+    const price=document.createElement('p');
+    price.classList.add('precio');
+    price.innerHTML= `
+        The price is: <span> ${PRICE} </span>
+    `;
+
+    const priceHigh=document.createElement('p');
+    priceHigh.innerHTML= `
+        The higher price today is: <span> ${HIGHDAY} </span>
+    `;
+
+    const priceLow=document.createElement('p');
+    priceLow.innerHTML= `
+        The lower price today is: <span> ${LOWDAY} </span>
+    `;
+
+    const lastHours=document.createElement('p');
+    lastHours.innerHTML= `
+        The variation in last 24 hours is: <span> %${CHANGEPCT24HOUR} </span>
+    `;
+
+    const lastUpdate=document.createElement('p');
+    lastUpdate.innerHTML= `
+        The last update was: <span> ${LASTUPDATE} </span>
+    `;
+
+    result.appendChild(price);
+    result.appendChild(priceHigh);
+    result.appendChild(priceLow);
+    result.appendChild(lastHours);
+    result.appendChild(lastUpdate);
+}
+
+function cleanHTML(spaceToClean){
+    while(spaceToClean.firstChild){
+        spaceToClean.removeChild(spaceToClean.firstChild);
+    }
 }
