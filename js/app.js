@@ -53,5 +53,14 @@ function validateForm(e) {
 }
 
 function showAlert(message){
-    console.log(message);
+    const alertExist=document.querySelector('.error');
+    if (!alertExist) {
+        const alert = document.createElement('div');
+        alert.classList.add('error');
+        alert.textContent=message;
+        form.appendChild(alert);
+        setTimeout(() => {
+            alert.remove();
+        }, 3000);
+    }
 }
