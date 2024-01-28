@@ -1,8 +1,20 @@
 const form=document.querySelector('#formulario')
-const cryptoCurrence=document.querySelector('#criptomonedas');
-const currence=document.querySelector('#moneda');
+const cryptoCurrenceSelector=document.querySelector('#cryptocurrences');
+const currenceSelector=document.querySelector('#currence');
 
-document.addEventListener('DOMContentLoaded', callAPI);
+const objSearch={
+    currence: '',
+    cryptocurrence: ''
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+    callAPI();
+
+    form.addEventListener('submit', validateForm);
+
+    cryptoCurrenceSelector.addEventListener('change', readValue);
+    currenceSelector.addEventListener('change', readValue);
+});
 
 function callAPI(){
     fetch('https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=MXN')
@@ -21,6 +33,25 @@ function fillForm(dataCryptos){
         const option=document.createElement('option');
         option.textContent=FullName;
         option.value=Name;
-        cryptoCurrence.appendChild(option);
+        cryptoCurrenceSelector.appendChild(option);
     });
+}
+
+function readValue(e) {
+    objSearch[e.target.name]=e.target.value;
+}
+
+function validateForm(e) {
+    e.preventDefault();
+
+    const {currence, cryptocurrence} = objSearch;
+
+    if (!currence || !cryptocurrence) {
+        showAlert('Both field are required');
+        return
+    }
+}
+
+function showAlert(message){
+    console.log(message);
 }
