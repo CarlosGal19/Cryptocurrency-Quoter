@@ -19,13 +19,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Function that is going to fill the options of the form in criptocurrencies selector
-function callAPI() {
-  fetch(
-    "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=MXN"
-  )
-    .then((response) => response.json())
-    .then((data) => getCryptoCurrencies(data.Data))
-    .then((cryptoCurrencies) => fillForm(cryptoCurrencies));
+async function callAPI() {
+  // fetch(
+  //   "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=MXN"
+  // )
+  //   .then((response) => response.json())
+  //   .then((data) => getCryptoCurrencies(data.Data))
+  //   .then((cryptoCurrencies) => fillForm(cryptoCurrencies));
+    try {
+      const response = await fetch("https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=MXN");
+      const data = await response.json();
+      const cryptoCurrencies = await getCryptoCurrencies(data.Data);
+      fillForm(cryptoCurrencies);
+    } catch (error) {
+      console.log(error);
+    }
 }
 
 // Promise that gets the cryptocurrencies for the options
@@ -79,18 +87,26 @@ function showAlert(message) {
 }
 
 // Function that calls the API and get its values to show them
-function consultAPI() {
+async function consultAPI() {
   const { currence, cryptocurrence } = objSearch;
 
   showSpinner();
 
-  fetch(
-    `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptocurrence}&tsyms=${currence}`
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      showQuote(data.DISPLAY[cryptocurrence][currence]);
-    });
+  // fetch(
+  //   `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptocurrence}&tsyms=${currence}`
+  // )
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     showQuote(data.DISPLAY[cryptocurrence][currence]);
+  //   });
+
+  try {
+    const response = await fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptocurrence}&tsyms=${currence}`);
+    const data = await response.json();
+    showQuote(data.DISPLAY[cryptocurrence][currence]);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // Function that append the cryptocurrency in DOM
