@@ -48,23 +48,23 @@ input[type="submit"]{
     text-align: center;
 }
 
-.resultado {
+.result {
     color: white;
 
 }
-.resultado h2 {
+.result h2 {
     font-weight: bold;
     color: white;
 }
 
 
-.resultado p {
+.result p {
     font-size: 18px!important;
 }
-.resultado p span {
+.result p span {
     font-weight: bold;
 }
-p.precio{
+p.price{
     font-size: 30px!important;
 }
 

@@ -1,7 +1,7 @@
-const form = document.querySelector("#formulario");
+const form = document.querySelector("#form");
 const cryptoCurrenceSelector = document.querySelector("#cryptocurrences");
 const currenceSelector = document.querySelector("#currence");
-const result = document.querySelector("#resultado");
+const result = document.querySelector("#result");
 
 // Object which is going to save the values selected by the user
 const objSearch = {
@@ -116,7 +116,7 @@ function showQuote(objData) {
   const { LASTUPDATE, LOWDAY, HIGHDAY, PRICE, CHANGEPCT24HOUR } = objData;
 
   const price = document.createElement("p");
-  price.classList.add("precio");
+  price.classList.add("price");
   price.innerHTML = `
         The price is: <span> ${PRICE} </span>
     `;
